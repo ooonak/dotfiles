@@ -6,3 +6,24 @@ git clone git://github.com/<mygithubusername>/dotfiles.git
 cd ~/dotfiles
 chmod +x makesymlinks.sh
 ./makesymlinks.sh
+
+# Initial setup of Vim plugins
+
+1. Get Vundle
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
+2. Get and compile YouCompleteMe
+git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe
+cd ~/.vim/bundle/YouCompleteMe
+git submodule update --init --recursive
+./install.sh --clang-completer
+
+3. As vimrc is setup, let Vundle handle installation of the rest of the plugins.
+vim +BundleInstall +qall
+
+Remeber to create folder structure:
+mkdir -p ~/.vim/tmp/{backup, undo, swap}
+mkdir -p ~/.vim/spell (And copy your dictionary files to the folder)
+
+If you miss a plugin, remember you can search for it with Vundle with 
+':PluginSearch! plugin_query' and update your plugins with ':PluginUpdate'

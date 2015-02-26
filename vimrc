@@ -1,6 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: Casper
-" Version: 1.2 - 22/2/2015
+" Version: 1.3 - 26/2/2015
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -20,7 +20,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 
 " Track the engine.
 Plugin 'SirVer/ultisnips'
@@ -177,9 +177,15 @@ set lazyredraw
 
 " Handle long lines
 set wrap
+set linebreak
+set nolist  " list disables linebreak
+" We don't wan't Vim to insert linebreaks, just wrap visually
+set textwidth=0
+set wrapmargin=0
+
 set textwidth=79
 set formatoptions=qrn1
-set colorcolumn=85
+set colorcolumn=80
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editting mappings
@@ -200,6 +206,8 @@ noremap <up> <nop>
 noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
+
+" gj/gk moves visually one line, even if it's the same line
 nnoremap j gj
 nnoremap k gk
 
@@ -283,6 +291,12 @@ nnoremap <leader>t :TlistToggle<CR>
 
 " Toggle file explorer
 nnoremap <leader>e :Vexplore<CR>
+
+" Compile LaTeX with rubber
+map <F11> :w<CR>:!rubber --pdf --warn all %<CR>
+
+" Show resulting pdf
+map <F12> :!evince %:r.pdf &<CR><CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
