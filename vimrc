@@ -175,16 +175,19 @@ set autoindent
 set smartindent" Don't redraw while executing macros (good performance config)
 set lazyredraw
 
-" Handle long lines, just break them, without inserting line break
-"set linebreak
-"set wrap
-"set wrapmargin=0
-
-" Don't make long lines, lines no longer than 79, insert line break
-set textwidth=79
-
+" Handle lines
 set nolist  " list disables linebreak
-set formatoptions=qrn1t
+set formatoptions=qrn1
+
+" Just break them visually, without inserting line break
+set linebreak
+set wrap
+set wrapmargin=0
+set textwidth=0
+
+" Don't make lines longer than 79, insert line break
+"set formatoptions+=t
+"set textwidth=79
 
 " Visually show max text width
 set colorcolumn=80
