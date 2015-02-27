@@ -175,16 +175,18 @@ set autoindent
 set smartindent" Don't redraw while executing macros (good performance config)
 set lazyredraw
 
-" Handle long lines
-set wrap
-set linebreak
-set nolist  " list disables linebreak
-" We don't wan't Vim to insert linebreaks, just wrap visually
-set textwidth=0
-set wrapmargin=0
+" Handle long lines, just break them, without inserting line break
+"set linebreak
+"set wrap
+"set wrapmargin=0
 
+" Don't make long lines, lines no longer than 79, insert line break
 set textwidth=79
-set formatoptions=qrn1
+
+set nolist  " list disables linebreak
+set formatoptions=qrn1t
+
+" Visually show max text width
 set colorcolumn=80
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
