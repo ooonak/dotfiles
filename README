@@ -1,7 +1,7 @@
 Inspired by http://blog.smalleycreative.com/tutorials/using-git-and-github-to-manage-your-dotfiles/ 
 
 # Cloning our dotfiles to another machine
-git clone git://github.com/<mygithubusername>/dotfiles.git
+git clone https://github.com/ooonak/dotfiles.git
 
 cd ~/dotfiles
 chmod +x makesymlinks.sh
@@ -10,7 +10,7 @@ chmod +x makesymlinks.sh
 # Initial setup of Vim plugins
 
 1. Get Vundle
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 2. Get and compile YouCompleteMe
 git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe
