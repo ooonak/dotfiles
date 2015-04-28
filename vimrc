@@ -363,4 +363,4 @@ let g:rainbow_active = 1
 " Taglist
 
 " Eclim
-let g:EclimCompletionMethod = 'omnifunc'
+"let g:EclimCompletionMethod = 'omnifunc'
