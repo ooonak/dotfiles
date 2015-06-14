@@ -19,7 +19,8 @@ git submodule update --init --recursive
 ./install.sh --clang-completer --system-libclang
 
 3. As vimrc is setup, let Vundle handle installation of the rest of the plugins.
-vim +BundleInstall +qall
+Open vim and execute :PluginInstall 
+or from command line: $ vim +PluginInstall +qall
 
 Remeber to create folder structure:
 mkdir -p ~/.vim/tmp/{backup, undo, swap}
