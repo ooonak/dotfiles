@@ -1,7 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: Casper
 " Version: Simple
-" Updated: 1.0 - 14/6/2015
+" Updated: 1.1 - 15/6/2015
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -22,6 +22,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'luochen1990/rainbow'
+
+Plugin 'taglist.vim'
 
 Plugin 'Solarized'
 
@@ -277,10 +279,10 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>w <C-w>v<C-w>l
 
 " Toggle taglist
-"nnoremap <leader>t :TlistToggle<CR>
+nnoremap <leader>t :TlistToggle<CR>
 
 " Toggle file explorer
-"nnoremap <leader>e :Vexplore<CR>
+nnoremap <leader>e :Vexplore<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
