@@ -1,6 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: Casper
-" Version: 1.3 - 26/2/2015
+" Version: 1.4 - 11/8 2015
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -167,9 +167,9 @@ set expandtab
 set smarttab
 
 " Indentation
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=8
+set shiftwidth=8
+set softtabstop=8
 
 set autoindent
 set smartindent" Don't redraw while executing macros (good performance config)
@@ -221,6 +221,10 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" Split more naturally
+set splitbelow
+set splitright
 
 " Return to the last edit position when opening files
 autocmd BufReadPost *

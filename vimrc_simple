@@ -1,7 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: Casper
 " Version: Simple
-" Updated: 1.1 - 15/6/2015
+" Updated: 1.2 - 11/08 2015
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -215,6 +215,10 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" Split more naturally
+set splitbelow
+set splitright
 
 " Return to the last edit position when opening files
 autocmd BufReadPost *
