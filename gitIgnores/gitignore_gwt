@@ -1,0 +1,16 @@
+*.class
+
+*.jar
+*.war
+
+.gwt/
+
+war/stockwatcher/
+gwt-unitCache/
+www-test/
+
+.apt_generated/
+
+war/WEB-INF/deploy/
+war/WEB-INF/classes/
+war/WEB-INF/appengine-generated/
