@@ -10,6 +10,7 @@ gwt-unitCache/
 www-test/
 
 .apt_generated/
+hs_err_pid*.log
 
 war/WEB-INF/deploy/
 war/WEB-INF/classes/
