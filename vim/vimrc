@@ -1,0 +1,370 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Maintainer: Casper
+" Version: 1.4 - 11/8 2015
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins managed by Vundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Don't be vi compatible
+set nocompatible              " be iMproved, required by Vundle
+filetype off                  " required, required by Vundle
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+Bundle 'Valloric/YouCompleteMe'
+
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+
+Plugin 'luochen1990/rainbow'
+
+Plugin 'taglist.vim'
+
+Plugin 'Solarized'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required by Vundle
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Sets how many lines of history VIM has to remember
+set history=250
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Autosave on losing focus
+au FocusLost * :wa
+
+" Prevents some security exploits
+set modelines=0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" User interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"Always show current position
+set ruler
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" Configure backspace so it acts as it should act
+set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+set hidden
+set wildmenu
+set wildmode=list:longest
+
+" Show some non-printable
+"set list
+"set listchars=tab:▸\ ,eol:¬
+
+set scrolloff=3
+set showmode
+set showcmd
+set ttyfast
+set laststatus=2
+set number
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors and fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set background=dark
+colorscheme solarized
+"colorscheme desert
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+  set guioptions-=m " Remove menu bar
+  set guioptions-=T " Remove toolbar
+  set guioptions-=r " Remove right-hand scroll bar
+  set guioptions-=L " Remove left-hand scroll bar
+  set guioptions+=e " 
+  set t_Co=256
+  set guitablabel=%M\ %t
+
+  " Set initial size of gvim
+  set lines=54
+  set columns=89
+endif
+
+" Enable syntax highlighting
+syntax enable
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf-8
+
+" Use UNIX as the standard file type
+set ffs=unix,dos,mac
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Files, backups and sudo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Path to undo, backup and swap files
+set undodir=~/.vim/tmp/undo//
+set backupdir=~/.vim/tmp/backup//
+set directory=~/.vim/tmp/swap//
+
+" Use persistent undo
+set undofile
+set undolevels=100 "maximum number of changes that can be undone
+set undoreload=1000 "maximum number lines to save for undo on a buffer reload
+
+" When you forget to open file with sudo rights, save it anyway
+cmap w!! w !sudo tee % >/dev/null
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs
+set smarttab
+
+" Indentation
+set tabstop=8
+set shiftwidth=8
+set softtabstop=8
+
+set autoindent
+set smartindent" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" Handle lines
+set nolist  " list disables linebreak
+set formatoptions=qrn1
+
+" Just break them visually, without inserting line break
+set linebreak
+set wrap
+set wrapmargin=0
+set textwidth=0
+
+" Don't make lines longer than 79, insert line break
+"set formatoptions+=t
+"set textwidth=79
+
+" Visually show max text width
+set colorcolumn=80
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Editting mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Change leader from \ to ,
+let mapleader = ","
+
+" Remove highligt when done searching by \ space
+nnoremap <leader><space> :noh<cr> 
+
+" Turn arrow-keys off, learn hjkl
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+" gj/gk moves visually one line, even if it's the same line
+nnoremap j gj
+nnoremap k gk
+
+" Remap split movement to Ctrl-hjkl
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Split more naturally
+set splitbelow
+set splitright
+
+" Return to the last edit position when opening files
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal! g`\"" |
+  \ endif
+" Remember info about open buffers on close
+" set viminfo^=%
+
+" Delete trailing white space on save
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+
+autocmd BufWrite *.c :call DeleteTrailingWS()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Useful mappings for managing tabs
+map <leader>h :tabn<cr>
+map <leader>l :tabp<cr>
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+" even better is :Te!
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Spellchecking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <F5> <Esc>:setlocal spell spelllang=da<CR>
+map <F6> <Esc>:setlocal spell spelllang=en_gb<CR>
+map <F7> <Esc>:setlocal nospell<CR>
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L\ Col:\ %c
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Macros 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Macro: open menu
+map <F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR> 
+
+" Macro: re-source .vimrc
+map <F2> :so %<CR>
+
+" Macro: compile and run
+map <F10> :w<CR> :!clear; clang % -o %< && ./%<<CR>
+
+" Leader key shortcut: Strip off whitespace with <leader> W
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Leader key shortcut: Open new window in vertical split and change to it
+nnoremap <leader>w <C-w>v<C-w>l
+
+" Toggle taglist
+nnoremap <leader>t :TlistToggle<CR>
+
+" Toggle file explorer
+nnoremap <leader>e :Vexplore<CR>
+
+" Compile LaTeX with rubber
+map <F11> :w<CR>:!rubber --pdf --warn all %<CR>
+
+" Show resulting pdf
+map <F12> :!evince %:r.pdf &<CR><CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    en
+    return ''
+endfunction
+
+function! HybridLN()
+    set relativenumber
+    set number
+endfunction
+
+function! AbsoluteLN()
+    set relativenumber!
+    set number
+endfunction
+
+" Absolute line number when focus is lost
+:au FocusLost * :call AbsoluteLN()
+:au FocusGained * :call HybridLN()
+
+" Absolute in normal mode / relative in insert mode
+autocmd InsertEnter * :call AbsoluteLN()
+autocmd InsertLeave * :call HybridLN()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Hide dot files and dirs in netrw
+let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
+
+" YouCompleteMe plugin
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+"let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+
+" UltiSnips
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"                                           
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+
+" If you want :UltiSnipsEdit to split your window.
+"let g:UltiSnipsEditSplit="vertical"
+
+" RainbowParantheses
+let g:rainbow_active = 1
+
+" Taglist
+
+" Eclim
+"let g:EclimCompletionMethod = 'omnifunc'
