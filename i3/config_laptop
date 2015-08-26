@@ -180,7 +180,7 @@ bindsym $mod+Home mode "$mode_system"
 set debuglog off
 
 # Startup programs
-exec --no-startup-id xfce4-panel --disable-wm-check
+#exec --no-startup-id xfce4-panel --disable-wm-check
 
 # Set wallpaper with fee
 exec --no-startup-id feh --bg-fill /home/ctvp/Pictures/wallpapers/text-wide-wallpaper-1600x900-010.jpg
