@@ -40,8 +40,8 @@ flags = [
 '-fexceptions',
 '-DNDEBUG',
 '-DUSE_CLANG_COMPLETER',
-'-std=c90',
-'-x', 'c',
+'-std=c++11',
+'-x', 'c++',
 '-isystem', '/usr/include/',
 ]
 
@@ -52,8 +52,7 @@ if os.path.exists( compilation_database_folder ):
 else:
   database = None
 
-#SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]
-SOURCE_EXTENSIONS = [ '.c' ]
+SOURCE_EXTENSIONS = [ '.cpp' ]
 
 def DirectoryOfThisScript():
   return os.path.dirname( os.path.abspath( __file__ ) )
@@ -90,7 +89,6 @@ def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
 
 def IsHeaderFile( filename ):
   extension = os.path.splitext( filename )[ 1 ]
-#  return extension in [ '.h', '.hxx', '.hpp', '.hh' ]
   return extension in [ '.h' ]
 
 

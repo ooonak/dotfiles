@@ -1,6 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: Casper
-" Version: 1.4 - 11/8 2015
+" Version: 1.5 - 25/10 2015
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -42,7 +42,7 @@ filetype plugin indent on    " required by Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Sets how many lines of history VIM has to remember
-set history=250
+set history=100
 
 " Enable filetype plugins
 filetype plugin on
@@ -111,9 +111,9 @@ set number
 " Colors and fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set background=dark
-colorscheme solarized
-"colorscheme desert
+"set background=dark
+"colorscheme solarized
+colorscheme desert
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -150,8 +150,8 @@ set directory=~/.vim/tmp/swap//
 
 " Use persistent undo
 set undofile
-set undolevels=100 "maximum number of changes that can be undone
-set undoreload=1000 "maximum number lines to save for undo on a buffer reload
+set undolevels=200 "maximum number of changes that can be undone
+set undoreload=800 "maximum number lines to save for undo on a buffer reload
 
 " When you forget to open file with sudo rights, save it anyway
 cmap w!! w !sudo tee % >/dev/null
@@ -167,9 +167,13 @@ set expandtab
 set smarttab
 
 " Indentation
-set tabstop=8
-set shiftwidth=8
-set softtabstop=8
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
+" Specific indentation for certain filetypes
+autocmd FileType c setlocal tabstop=8 shiftwidth=8 softtabstop=8
+autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 softtabstop=4
 
 set autoindent
 set smartindent" Don't redraw while executing macros (good performance config)
@@ -263,9 +267,9 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spellchecking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <F5> <Esc>:setlocal spell spelllang=da<CR>
-map <F6> <Esc>:setlocal spell spelllang=en_gb<CR>
-map <F7> <Esc>:setlocal nospell<CR>
+"map <F5> <Esc>:setlocal spell spelllang=da<CR>
+"map <F6> <Esc>:setlocal spell spelllang=en_gb<CR>
+"map <F7> <Esc>:setlocal nospell<CR>
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -287,7 +291,7 @@ map <F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 map <F2> :so %<CR>
 
 " Macro: compile and run
-map <F10> :w<CR> :!clear; clang % -o %< && ./%<<CR>
+"map <F10> :w<CR> :!clear; clang % -o %< && ./%<<CR>
 
 " Leader key shortcut: Strip off whitespace with <leader> W
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -302,10 +306,10 @@ nnoremap <leader>t :TlistToggle<CR>
 nnoremap <leader>e :Vexplore<CR>
 
 " Compile LaTeX with rubber
-map <F11> :w<CR>:!rubber --pdf --warn all %<CR>
+"map <F11> :w<CR>:!rubber --pdf --warn all %<CR>
 
 " Show resulting pdf
-map <F12> :!evince %:r.pdf &<CR><CR>
+"map <F12> :!evince %:r.pdf &<CR><CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -330,12 +334,14 @@ function! AbsoluteLN()
 endfunction
 
 " Absolute line number when focus is lost
-:au FocusLost * :call AbsoluteLN()
-:au FocusGained * :call HybridLN()
+autocmd FocusLost * :call AbsoluteLN()
+autocmd FocusGained * :call HybridLN()
 
 " Absolute in normal mode / relative in insert mode
 autocmd InsertEnter * :call AbsoluteLN()
 autocmd InsertLeave * :call HybridLN()
+
+" Create $HOME/.vim/tmp/{backup, swap, undo} if they does not exist
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -365,6 +371,3 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 let g:rainbow_active = 1
 
 " Taglist
-
-" Eclim
-"let g:EclimCompletionMethod = 'omnifunc'
