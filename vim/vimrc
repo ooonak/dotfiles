@@ -262,6 +262,10 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
+" Useful mappings for managing buffers
+map <C-n> :bnext<CR>
+map <C-p> :bprevious<CR>
+
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 " even better is :Te!
@@ -306,7 +310,10 @@ nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>t :TlistToggle<CR>
 
 " Toggle file explorer
-nnoremap <leader>e :Texplore<CR>
+nnoremap <leader>e :Explore<CR>
+nnoremap <leader>et :Texplore<CR>
+nnoremap <leader>ev :VExplore<CR>
+nnoremap <leader>eh :HExplore<CR>
 
 " Compile LaTeX with rubber
 "map <F11> :w<CR>:!rubber --pdf --warn all %<CR>
@@ -361,7 +368,7 @@ let g:ycm_key_list_previous_completion=[]
 "let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 
 " Only load .ycm_extra_conf.py from paths beneath $HOME/dev/
-let g:ycm_extra_conf_globlist = ['~/dtu/*','!~/*']
+"let g:ycm_extra_conf_globlist = ['~/dtu/*','!~/*']
 
 " UltiSnips
 " Trigger configuration. Do not use <tab> if you use

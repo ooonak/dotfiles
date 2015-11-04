@@ -154,9 +154,11 @@ bindsym Control+Mod4+l exec i3-msg workspace 1 && i3lock -c 111111 -d
 bindsym Mod4+Print exec scrot -e 'mv $f ~/Pictures/screendumps/`date +%Y%m%d_%H%M%S`_screenshot.png'
 
 # color scheme
-client.focused          #3F8AC2 #096BAA #00BAA7 #00DA8E
+#client.focused          #3F8AC2 #096BAA #00BAA7 #00DA8E
+#client.unfocused        #333333 #424242 #888888 #292d2e
+client.focused          #333333 #292929 #888888 #292d2e
 client.focused_inactive #333333 #5F676A #ffffff #484e50
-client.unfocused        #333333 #424242 #888888 #292d2e
+client.unfocused        #000000 #000000 #888888 #292d2e
 client.urgent           #C10004 #900000 #ffffff #900000
 
 # Don't need to remeber where you came from, just hit the same workspace again
