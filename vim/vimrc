@@ -198,6 +198,7 @@ set textwidth=0
 
 " Visually show max text width
 set colorcolumn=80
+highlight colorcolumn ctermbg=DarkGray guibg=DarkGray
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editting mappings
@@ -386,3 +387,5 @@ let g:rainbow_active = 1
 " Taglist
 let Tlist_Use_Right_Window = 1
 set tags=./tags;/
+
+"source $HOME/.vim/plugin/cscope_maps.vim
