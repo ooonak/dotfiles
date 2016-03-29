@@ -1,6 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: Casper
-" Version: 1.6 - 24/11 2015
+" Version: 1.7 - 27/03 2016
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -297,10 +297,13 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 map <F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR> 
 
 " Macro: re-source .vimrc
-map <F2> :so %<CR>
+map <F3> :so %<CR>
 
 " Macro: compile and run
 "map <F10> :w<CR> :!clear; clang % -o %< && ./%<<CR>
+
+" Macro: paste / no paste
+"set pastetoogle=<F2>
 
 " Leader key shortcut: Strip off whitespace with <leader> W
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
