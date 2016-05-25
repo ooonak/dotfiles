@@ -38,9 +38,13 @@ Plugin 'octol/vim-cpp-enhanced-highlight'   " Better C++ highlighting
 Plugin 'rhysd/vim-clang-format'             " Clang code formatter
 
 Bundle 'Valloric/YouCompleteMe'
+Plugin 'Valloric/ListToggle'
+"Bundle 'Rip-Rip/clang_complete'
 
-Plugin 'SirVer/ultisnips'                   " Then engine
+Plugin 'SirVer/ultisnips'                   " The engine
 Plugin 'honza/vim-snippets'                 " Snippets
+
+Plugin 'sjl/gundo.vim'                      " Graphical undo
 
 Plugin 'luochen1990/rainbow'
 Plugin 'Solarized'
@@ -186,6 +190,9 @@ set expandtab
 " Be smart when using tabs
 set smarttab
 
+" Smart indent for C code
+set cindent
+
 " Indentation
 set tabstop=2
 set shiftwidth=2
@@ -300,7 +307,10 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " => Status line
 """"""""""""""""""""""""""""""
 " Always show the status line
-"set laststatus=2
+set laststatus=2
+
+" Don't show the mode
+set noshowmode
 
 " Format the status line
 "set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L\ Col:\ %c
@@ -440,27 +450,43 @@ au VimEnter,ColorScheme * exec 'hi! SyntasticWarning ' . s:getbg('SyntasticWarni
 
 let g:syntastic_mode_map = { "mode": "active", "passive_filetypes": ["go", "html"] }
 
+" When you type the first tab, it will complete as much as possible, the second
+" tab hit will provide a list, the third and subsequent tabs will cycle through
+" completion options so you can complete the file without further keys
+set wildmode=longest,list,full
+set wildmenu            " completion with menu
+" The "longest" option makes completion insert the longest prefix of all
+" the possible matches; see :h completeopt
+set completeopt=menu,menuone,longest
+set switchbuf=useopen,usetab
+
 " YouCompleteMe Setup
-set completeopt-=preview
+"set completeopt-=preview
+let g:ycm_auto_trigger = 1
+"let g:ycm_key_invoke_completion = ''
+
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_seed_identifiers_with_syntax = 1
+"let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_min_num_identifier_candidate_chars = 4
 let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
-let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_filetype_specific_completion_to_disable = {
-      \ 'gitcommit': 1,
-      \ 'html': 1,
-      \ 'css': 1
-      \}
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+
 nnoremap <leader>h :YcmCompleter GoToDeclaration<cr>
 nnoremap <leader>? :YcmCompleter GoToDefinitionElseDeclaration<cr>
 nnoremap <leader>d :YcmCompleter GoToDefinition<cr>
 nnoremap <leader>i :YcmCompleter FixIt<cr>
 
+" ListToggle Setup
+let g:lt_height = 10
+
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<c-a>"
+let g:UltiSnipsExpandTrigger ="<c-a>"
+let g:UltiSnipsListSnippets = "<c-m-s>"
+let g:UltiSnipsJumpForwardTrigger = "<right>"
+let g:UltiSnipsJumpBackwardTrigger = "<left>"
 
 " RainbowParantheses
 let g:rainbow_active = 1
@@ -470,6 +496,7 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 nnoremap <silent> <leader>b :CtrlPBuffer<cr>
+nnoremap <silent> <leader>. :CtrlPTag<cr>
 
 " ClangFormat Setup
 let g:clang_format#style_options = {
@@ -501,13 +528,20 @@ nnoremap <leader>t :TagbarToggle<cr>
 
 " Taglist
 "let Tlist_Use_Right_Window = 1
-"set tags=./tags;/
+
+" Look for tag def in a "tags" file in the dir of the current file, then for
+" that same file in every folder above the folder of the current file, until the
+" root.
+set tags=./tags;/
 
 " NERDTree Setup
 " Open NERDTree
 map <leader>n :NERDTreeToggle<CR>
 " Close Vim if NERDTree is the only window left
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Grahical Undo setup
+nnoremap <F5> :GundoToggle<CR>
 
 " CScope plugin
 source $HOME/.vim/plugin/cscope_maps.vim
