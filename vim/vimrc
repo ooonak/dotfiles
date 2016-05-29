@@ -1,6 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: Casper
-" Version: 2.0 - 25/05 2016
+" Version: 2.1 - 29/05 2016
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -25,7 +25,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdTree'
-"Plugin 'taglist.vim'
 
 Plugin 'nathanaelkane/vim-indent-guides'    " Show indentation
 Plugin 'ntpeters/vim-better-whitespace'     " See trailing whitespace
@@ -39,7 +38,6 @@ Plugin 'rhysd/vim-clang-format'             " Clang code formatter
 
 Bundle 'Valloric/YouCompleteMe'
 Plugin 'Valloric/ListToggle'
-"Bundle 'Rip-Rip/clang_complete'
 
 Plugin 'SirVer/ultisnips'                   " The engine
 Plugin 'honza/vim-snippets'                 " Snippets
@@ -174,8 +172,8 @@ set undodir=~/.vim/tmp/undo//
 
 " Use persistent undo
 set undofile
-set undolevels=200 "maximum number of changes that can be undone
-set undoreload=800 "maximum number lines to save for undo on a buffer reload
+set undolevels=100 "maximum number of changes that can be undone
+set undoreload=400 "maximum number lines to save for undo on a buffer reload
 
 " When you forget to open file with sudo rights, save it anyway
 cmap w!! w !sudo tee % >/dev/null
@@ -203,18 +201,17 @@ autocmd FileType c setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 softtabstop=4
 
 set autoindent
-set smartindent" Don't redraw while executing macros (good performance config)
-set lazyredraw
+set smartindent 
 
 " Handle lines
 set nolist  " list disables linebreak
 set formatoptions=qrn1
 
 " Just break them visually, without inserting line break
-set linebreak
-set wrap
-set wrapmargin=0
-set textwidth=0
+"set linebreak
+"set wrap
+"set wrapmargin=0
+"set textwidth=0
 
 " Don't make lines longer than 79, insert line break
 "set formatoptions+=t
@@ -323,7 +320,7 @@ set noshowmode
 map <F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR> 
 
 " Macro: re-source .vimrc
-map <F3> :so %<CR>
+"map <F2> :so %<CR>
 
 " Macro: compile and run
 "map <F10> :w<CR> :!clear; clang % -o %< && ./%<<CR>
@@ -332,7 +329,7 @@ map <F3> :so %<CR>
 "set pastetoogle=<F2>
 
 " Leader key shortcut: Strip off whitespace with <leader> W
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+"nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Leader key shortcut: Open new window in vertical split and change to it
 nnoremap <leader>w <C-w>v<C-w>l
@@ -376,8 +373,6 @@ autocmd FocusGained * :call HybridLN()
 autocmd InsertEnter * :call AbsoluteLN()
 autocmd InsertLeave * :call HybridLN()
 
-" Create $HOME/.vim/tmp/{backup, swap, undo} if they does not exist
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File type settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -393,9 +388,6 @@ au BufNewFile,BufRead *
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Hide dot files and dirs in netrw
-"let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
 
 " Airline Setup
 let g:airline_theme = 'hybrid'
