@@ -36,7 +36,7 @@ Plugin 'octol/vim-cpp-enhanced-highlight'   " Better C++ highlighting
 
 Plugin 'rhysd/vim-clang-format'             " Clang code formatter
 
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 "Plugin 'Valloric/ListToggle'
 
 Plugin 'SirVer/ultisnips'                   " The engine
@@ -284,55 +284,55 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
-" Useful mappings for managing buffers
-map <C-n> :bnext<CR>
-map <C-p> :bprevious<CR>
+  " Useful mappings for managing buffers
+  map <C-n> :bnext<CR>
+  map <C-p> :bprevious<CR>
 
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-" even better is :Te!
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+  " Opens a new tab with the current buffer's path
+  " Super useful when editing files in the same directory
+  " even better is :Te!
+  map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Spellchecking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"map <F5> <Esc>:setlocal spell spelllang=da<CR>
-"map <F6> <Esc>:setlocal spell spelllang=en_gb<CR>
-"map <F7> <Esc>:setlocal nospell<CR>
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " Spellchecking
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  "map <F5> <Esc>:setlocal spell spelllang=da<CR>
+  "map <F6> <Esc>:setlocal spell spelllang=en_gb<CR>
+  "map <F7> <Esc>:setlocal nospell<CR>
 
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
-set laststatus=2
+  """"""""""""""""""""""""""""""
+  " => Status line
+  """"""""""""""""""""""""""""""
+  " Always show the status line
+  set laststatus=2
 
-" Don't show the mode
-set noshowmode
+  " Don't show the mode
+  set noshowmode
 
-" Format the status line
-"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L\ Col:\ %c
+  " Format the status line
+  "set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L\ Col:\ %c
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Macros 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " Macros 
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Macro: open menu
-map <F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR> 
+  " Macro: open menu
+  map <F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR> 
 
-" Macro: re-source .vimrc
-"map <F2> :so %<CR>
+  " Macro: re-source .vimrc
+  "map <F2> :so %<CR>
 
-" Macro: compile and run
-"map <F10> :w<CR> :!clear; clang % -o %< && ./%<<CR>
+  " Macro: compile and run
+  "map <F10> :w<CR> :!clear; clang % -o %< && ./%<<CR>
 
-" Macro: paste / no paste
-"set pastetoogle=<F2>
+  " Macro: paste / no paste
+  "set pastetoogle=<F2>
 
-" Leader key shortcut: Strip off whitespace with <leader> W
-"nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+  " Leader key shortcut: Strip off whitespace with <leader> W
+  "nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-" Leader key shortcut: Open new window in vertical split and change to it
-nnoremap <leader>w <C-w>v<C-w>l
+  " Leader key shortcut: Open new window in vertical split and change to it
+  nnoremap <leader>w <C-w>v<C-w>l
 
 " Toggle taglist
 "nnoremap <leader>t :TlistToggle<CR>
