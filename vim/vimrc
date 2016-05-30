@@ -37,8 +37,8 @@ Plugin 'octol/vim-cpp-enhanced-highlight'   " Better C++ highlighting
 
 Plugin 'rhysd/vim-clang-format'             " Clang code formatter
 
-Bundle 'Valloric/YouCompleteMe'
-Plugin 'Valloric/ListToggle'
+"Bundle 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/ListToggle'
 "Bundle 'Rip-Rip/clang_complete'
 
 Plugin 'SirVer/ultisnips'                   " The engine
@@ -480,7 +480,7 @@ nnoremap <leader>d :YcmCompleter GoToDefinition<cr>
 nnoremap <leader>i :YcmCompleter FixIt<cr>
 
 " ListToggle Setup
-let g:lt_height = 10
+"let g:lt_height = 10
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger ="<c-a>"
