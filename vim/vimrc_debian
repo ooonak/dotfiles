@@ -338,10 +338,9 @@ map <leader>tm :tabmove
 "nnoremap <leader>t :TlistToggle<CR>
 
 " Toggle file explorer
-"nnoremap <leader>e :Explore<CR>
-"nnoremap <leader>et :Texplore<CR>
-"nnoremap <leader>ev :VExplore<CR>
-"nnoremap <leader>eh :HExplore<CR>
+nnoremap <leader>e :Explore<CR>
+nnoremap <leader>et :Texplore<CR>
+nnoremap <leader>ev :VExplore<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions

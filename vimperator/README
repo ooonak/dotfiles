@@ -1,2 +1,0 @@
-cp -a ~/dotfiles/vimperator/darkness.vimp ~/.vimperator/colors/
-ln -s ~/.vimperatorrc ~/dotfiles/vimperator/vimperatorrc

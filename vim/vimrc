@@ -1,6 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: Casper
-" Version: 2.1 - 29/05 2016
+" Version: 3.0 - 02062021
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -20,33 +20,25 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'vim-airline/vim-airline'
+Plugin 'preservim/nerdtree'                 " Filesystem explorer
+Plugin 'preservim/tagbar'                   " Sidebar with ctags
+Plugin 'vim-airline/vim-airline'            " Lean & mean status/tabline
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdTree'
+Plugin 'vim-syntastic/syntastic'            " Syntax highlighter
+Plugin 'junegunn/rainbow_parentheses.vim'   " Guess :-)
 
-Plugin 'nathanaelkane/vim-indent-guides'    " Show indentation
-Plugin 'ntpeters/vim-better-whitespace'     " See trailing whitespace
-Plugin 'whatyouhide/vim-lengthmatters'      " See long lines
+"Plugin 'ctrlpvim/ctrlp.vim'
 
-Plugin 'scrooloose/syntastic'               " Syntax highlighter
-Plugin 'vim-jp/cpp-vim'                     " C and C++ highlighting
-Plugin 'octol/vim-cpp-enhanced-highlight'   " Better C++ highlighting
+"Plugin 'nathanaelkane/vim-indent-guides'    " Show indentation
+"Plugin 'ntpeters/vim-better-whitespace'     " See trailing whitespace
+"Plugin 'whatyouhide/vim-lengthmatters'      " See long lines
 
-Plugin 'rhysd/vim-clang-format'             " Clang code formatter
+"Plugin 'vim-jp/cpp-vim'                     " C and C++ highlighting
+"Plugin 'octol/vim-cpp-enhanced-highlight'   " Better C++ highlighting
 
-Bundle 'Valloric/YouCompleteMe'
-"Plugin 'Valloric/ListToggle'
+"Plugin 'rhysd/vim-clang-format'             " Clang code formatter
 
-Plugin 'SirVer/ultisnips'                   " The engine
-Plugin 'honza/vim-snippets'                 " Snippets
-
-Plugin 'sjl/gundo.vim'                      " Graphical undo
-
-Plugin 'luochen1990/rainbow'
-Plugin 'Solarized'
-Plugin 'junegunn/seoul256.vim'
+"Bundle 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -57,7 +49,7 @@ filetype plugin indent on    " required by Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Sets how many lines of history VIM has to remember
-set history=100
+" set history=100
 
 " Enable filetype plugins
 filetype plugin on
@@ -67,7 +59,7 @@ filetype indent on
 set autoread
 
 " Autosave on losing focus
-au FocusLost * :wa
+" au FocusLost * :wa
 
 " Prevents some security exploits
 set modelines=0
@@ -129,11 +121,11 @@ set number
 "set background=dark
 "colorscheme solarized
 "colorscheme desert
-colorscheme seoul256
+"colorscheme seoul256
 
-hi! link Conceal Normal
-hi! Normal ctermbg=NONE
-hi! NonText ctermbg=NONE
+"hi! link Conceal Normal
+"hi! Normal ctermbg=NONE
+"hi! NonText ctermbg=NONE
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -163,20 +155,20 @@ set ffs=unix,dos,mac
 " Files, backups and sudo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set noswapfile
+"set noswapfile
 
 " Path to undo, backup and swap files
-set undodir=~/.vim/tmp/undo//
+"set undodir=~/.vim/tmp/undo//
 "set backupdir=~/.vim/tmp/backup//
 "set directory=~/.vim/tmp/swap//
 
 " Use persistent undo
-set undofile
-set undolevels=100 "maximum number of changes that can be undone
-set undoreload=400 "maximum number lines to save for undo on a buffer reload
+"set undofile
+"set undolevels=100 "maximum number of changes that can be undone
+"set undoreload=400 "maximum number lines to save for undo on a buffer reload
 
 " When you forget to open file with sudo rights, save it anyway
-cmap w!! w !sudo tee % >/dev/null
+"cmap w!! w !sudo tee % >/dev/null
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text, tab and indent related
@@ -197,7 +189,7 @@ set shiftwidth=2
 set softtabstop=2
 
 " Specific indentation for certain filetypes
-autocmd FileType c setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType c setlocal tabstop=8 shiftwidth=8 softtabstop=8
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 softtabstop=4
 
 set autoindent
@@ -218,8 +210,8 @@ set formatoptions=qrn1
 "set textwidth=79
 
 " Visually show max text width
-"set colorcolumn=80
-"highlight colorcolumn ctermbg=DarkGray guibg=DarkGray
+set colorcolumn=80
+highlight colorcolumn ctermbg=DarkGray guibg=DarkGray
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editting mappings
@@ -263,14 +255,21 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 " set viminfo^=%
 
-" Delete trailing white space on save
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+au BufWinEnter * match ExtraWhitespace /\s\+$/
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+au BufWinLeave * call clearmatches()
 
-autocmd BufWrite *.c :call DeleteTrailingWS()
+" Delete trailing white space on save
+"func! DeleteTrailingWS()
+"  exe "normal mz"
+"  %s/\s\+$//ge
+"  exe "normal `z"
+"endfunc
+
+"autocmd BufWrite *.c :call DeleteTrailingWS()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -317,7 +316,7 @@ set noshowmode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Macro: open menu
-map <F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR> 
+"map <F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR> 
 
 " Macro: re-source .vimrc
 "map <F2> :so %<CR>
@@ -378,142 +377,142 @@ autocmd InsertLeave * :call HybridLN()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " C++
-au BufNewFile,BufRead *
-            \ if expand('%:e') =~ '^\(h\|hh\|hxx\|hpp\|ii\|ixx\|ipp\|inl\|txx\|tpp\|tpl\|cc\|cxx\|cpp\)$' |
-            \     if &ft != 'cpp'                                                                         |
-            \         set ft=cpp                                                                          |
-            \     endif                                                                                   |
-            \ endif
+"au BufNewFile,BufRead *
+"            \ if expand('%:e') =~ '^\(h\|hh\|hxx\|hpp\|ii\|ixx\|ipp\|inl\|txx\|tpp\|tpl\|cc\|cxx\|cpp\)$' |
+"            \     if &ft != 'cpp'                                                                         |
+"            \         set ft=cpp                                                                          |
+"            \     endif                                                                                   |
+"            \ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Airline Setup
-let g:airline_theme = 'hybrid'
-let g:airline_powerline_fonts = 0
+"let g:airline_theme = 'hybrid'
+"let g:airline_powerline_fonts = 0
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
+"if !exists('g:airline_symbols')
+"    let g:airline_symbols = {}
+"endif
+"let g:airline_symbols.space = "\ua0"
 
 " Syntastic Setup
 " getbg function
 " gets background of a highlighting group with fallback to SignColumn group
-function! s:getbg(group)
-    if has("gui_running")
-        let l:mode = 'gui'
-        let l:validation = '\w\+\|#\x\+'
-    else
-        let l:mode = 'cterm'
-        let l:validation = '\w\+'
-    endif
+"function! s:getbg(group)
+"    if has("gui_running")
+"        let l:mode = 'gui'
+"        let l:validation = '\w\+\|#\x\+'
+"    else
+"        let l:mode = 'cterm'
+"        let l:validation = '\w\+'
+"    endif
+"
+"    if synIDattr(synIDtrans(hlID(a:group)), 'reverse', l:mode)
+"        let l:bg = synIDattr(synIDtrans(hlID(a:group)), 'fg', l:mode)
+"    else
+"        let l:bg = synIDattr(synIDtrans(hlID(a:group)), 'bg', l:mode)
+"    endif
+"
+"    if l:bg == '-1' || l:bg !~ l:validation
+"        if synIDattr(synIDtrans(hlID('SignColumn')), 'reverse', l:mode)
+"            let l:bg = synIDattr(synIDtrans(hlID('SignColumn')), 'fg', l:mode)
+"        else
+"            let l:bg = synIDattr(synIDtrans(hlID('SignColumn')), 'bg', l:mode)
+"        endif
+"    endif
+"
+"    if l:bg == '-1' || l:bg !~ l:validation
+"        return ''
+"    endif
+"
+"    return l:mode . 'bg=' . l:bg
+"endfunction
 
-    if synIDattr(synIDtrans(hlID(a:group)), 'reverse', l:mode)
-        let l:bg = synIDattr(synIDtrans(hlID(a:group)), 'fg', l:mode)
-    else
-        let l:bg = synIDattr(synIDtrans(hlID(a:group)), 'bg', l:mode)
-    endif
+"let g:syntastic_error_symbol = '✘'
+"let g:syntastic_warning_symbol = '☢'
+"hi! link SyntasticErrorLine SignColumn
+"hi! link SyntasticWarningLine SignColumn
+"au VimEnter,ColorScheme * exec 'hi! SyntasticErrorSign guifg=red ctermfg=red ' . s:getbg('SyntasticErrorLine')
+"au VimEnter,ColorScheme * exec 'hi! SyntasticWarningSign guifg=yellow ctermfg=yellow ' . s:getbg('SyntasticWarningLine')
+"au VimEnter,ColorScheme * exec 'hi! SyntasticError ' . s:getbg('SyntasticErrorLine')
+"au VimEnter,ColorScheme * exec 'hi! SyntasticWarning ' . s:getbg('SyntasticWarningLine')
 
-    if l:bg == '-1' || l:bg !~ l:validation
-        if synIDattr(synIDtrans(hlID('SignColumn')), 'reverse', l:mode)
-            let l:bg = synIDattr(synIDtrans(hlID('SignColumn')), 'fg', l:mode)
-        else
-            let l:bg = synIDattr(synIDtrans(hlID('SignColumn')), 'bg', l:mode)
-        endif
-    endif
-
-    if l:bg == '-1' || l:bg !~ l:validation
-        return ''
-    endif
-
-    return l:mode . 'bg=' . l:bg
-endfunction
-
-let g:syntastic_error_symbol = '✘'
-let g:syntastic_warning_symbol = '☢'
-hi! link SyntasticErrorLine SignColumn
-hi! link SyntasticWarningLine SignColumn
-au VimEnter,ColorScheme * exec 'hi! SyntasticErrorSign guifg=red ctermfg=red ' . s:getbg('SyntasticErrorLine')
-au VimEnter,ColorScheme * exec 'hi! SyntasticWarningSign guifg=yellow ctermfg=yellow ' . s:getbg('SyntasticWarningLine')
-au VimEnter,ColorScheme * exec 'hi! SyntasticError ' . s:getbg('SyntasticErrorLine')
-au VimEnter,ColorScheme * exec 'hi! SyntasticWarning ' . s:getbg('SyntasticWarningLine')
-
-let g:syntastic_mode_map = { "mode": "active", "passive_filetypes": ["go", "html"] }
+"let g:syntastic_mode_map = { "mode": "active", "passive_filetypes": ["go", "html"] }
 
 " When you type the first tab, it will complete as much as possible, the second
 " tab hit will provide a list, the third and subsequent tabs will cycle through
 " completion options so you can complete the file without further keys
-set wildmode=longest,list,full
-set wildmenu            " completion with menu
+"set wildmode=longest,list,full
+"set wildmenu            " completion with menu
 " The "longest" option makes completion insert the longest prefix of all
 " the possible matches; see :h completeopt
-set completeopt=menu,menuone,longest
-set switchbuf=useopen,usetab
+"set completeopt=menu,menuone,longest
+"set switchbuf=useopen,usetab
 
 " YouCompleteMe Setup
 "set completeopt-=preview
-let g:ycm_auto_trigger = 1
+"let g:ycm_auto_trigger = 1
 "let g:ycm_key_invoke_completion = ''
 
-let g:ycm_confirm_extra_conf = 0
+"let g:ycm_confirm_extra_conf = 0
 "let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_min_num_identifier_candidate_chars = 4
-let g:ycm_key_list_select_completion = ['<Down>']
-let g:ycm_key_list_previous_completion = ['<Up>']
+"let g:ycm_min_num_identifier_candidate_chars = 4
+"let g:ycm_key_list_select_completion = ['<Down>']
+"let g:ycm_key_list_previous_completion = ['<Up>']
 "let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 
-nnoremap <leader>h :YcmCompleter GoToDeclaration<cr>
-nnoremap <leader>? :YcmCompleter GoToDefinitionElseDeclaration<cr>
-nnoremap <leader>d :YcmCompleter GoToDefinition<cr>
-nnoremap <leader>i :YcmCompleter FixIt<cr>
+"nnoremap <leader>h :YcmCompleter GoToDeclaration<cr>
+"nnoremap <leader>? :YcmCompleter GoToDefinitionElseDeclaration<cr>
+"nnoremap <leader>d :YcmCompleter GoToDefinition<cr>
+"nnoremap <leader>i :YcmCompleter FixIt<cr>
 
 " ListToggle Setup
 "let g:lt_height = 10
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger ="<c-a>"
-let g:UltiSnipsListSnippets = "<c-m-s>"
-let g:UltiSnipsJumpForwardTrigger = "<right>"
-let g:UltiSnipsJumpBackwardTrigger = "<left>"
+"let g:UltiSnipsExpandTrigger ="<c-a>"
+"let g:UltiSnipsListSnippets = "<c-m-s>"
+"let g:UltiSnipsJumpForwardTrigger = "<right>"
+"let g:UltiSnipsJumpBackwardTrigger = "<left>"
 
 " RainbowParantheses
-let g:rainbow_active = 1
+au VimEnter * RainbowParentheses
 
 " CtrlP Setup
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_follow_symlinks = 1
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-nnoremap <silent> <leader>b :CtrlPBuffer<cr>
-nnoremap <silent> <leader>. :CtrlPTag<cr>
+"let g:ctrlp_working_path_mode = 0
+"let g:ctrlp_follow_symlinks = 1
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+"nnoremap <silent> <leader>b :CtrlPBuffer<cr>
+"nnoremap <silent> <leader>. :CtrlPTag<cr>
 
 " ClangFormat Setup
-let g:clang_format#style_options = {
-            \ "AccessModifierOffset": -4,
-            \ "AllowShortLoopsOnASingleLine": "false",
-            \ "AllowShortBlocksOnASingleLine" : "false",
-            \ "AllowShortIfStatementsOnASingleLine": "false",
-            \ "AlwaysBreakTemplateDeclarations": "false",
-            \ "DerivePointerBinding": "false",
-            \ "PointerBindsToType": "false",
-            \ "ColumnLimit": 80,
-            \ "TabWidth": 4,
-            \ "Standard": "C++11" }
-au FileType c,cpp,objc,objcpp noremap  <silent> <buffer> <leader>= :ClangFormat<cr>
+"let g:clang_format#style_options = {
+"            \ "AccessModifierOffset": -4,
+"            \ "AllowShortLoopsOnASingleLine": "false",
+"            \ "AllowShortBlocksOnASingleLine" : "false",
+"            \ "AllowShortIfStatementsOnASingleLine": "false",
+"            \ "AlwaysBreakTemplateDeclarations": "false",
+"            \ "DerivePointerBinding": "false",
+"            \ "PointerBindsToType": "false",
+"            \ "ColumnLimit": 80,
+"            \ "TabWidth": 4,
+"            \ "Standard": "C++11" }
+"au FileType c,cpp,objc,objcpp noremap  <silent> <buffer> <leader>= :ClangFormat<cr>
 
 " lengthmatters Setup
-let g:lengthmatters_on_by_default = 0
-call lengthmatters#highlight_link_to('Visual')
-au FileType c,cpp :LengthmattersEnable
+"let g:lengthmatters_on_by_default = 0
+"call lengthmatters#highlight_link_to('Visual')
+"au FileType c,cpp :LengthmattersEnable
 
 " Indent Guides Setup
-let g:indent_guides_enable_on_vim_startup = 0
+"let g:indent_guides_enable_on_vim_startup = 0
 
 " better-whitespace Setup
-let g:better_whitespace_filetypes_blacklist = ['vimfiler']
+"let g:better_whitespace_filetypes_blacklist = ['vimfiler']
 
 " TagBar Setup
 nnoremap <leader>t :TagbarToggle<cr>
@@ -533,7 +532,7 @@ map <leader>n :NERDTreeToggle<CR>
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Grahical Undo setup
-nnoremap <F5> :GundoToggle<CR>
+"nnoremap <F5> :GundoToggle<CR>
 
 " CScope plugin
 source $HOME/.vim/plugin/cscope_maps.vim

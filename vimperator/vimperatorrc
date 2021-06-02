@@ -1,4 +1,0 @@
-let mapleader = ","
-nmap s <Leader>
-
-colorscheme darkness
