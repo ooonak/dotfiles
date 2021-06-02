@@ -1,4 +1,7 @@
-Inspired by http://blog.smalleycreative.com/tutorials/using-git-and-github-to-manage-your-dotfiles/ 
+02062021 Casper
+
+# Install dependencies
+sudo apt install exuberant-ctags cscope
 
 # Cloning our dotfiles to another machine
 git clone https://github.com/ooonak/dotfiles.git
@@ -12,19 +15,5 @@ chmod +x makesymlinks.sh
 1. Get Vundle
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-2. Get and compile YouCompleteMe
-git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe
-cd ~/.vim/bundle/YouCompleteMe
-git submodule update --init --recursive
-./install.sh --clang-completer --system-libclang
-
-3. As vimrc is setup, let Vundle handle installation of the rest of the plugins.
-Open vim and execute :PluginInstall 
-or from command line: $ vim +PluginInstall +qall
-
-Remeber to create folder structure:
-mkdir -p ~/.vim/tmp/{backup, undo, swap}
-mkdir -p ~/.vim/spell (And copy your dictionary files to the folder)
-
-If you miss a plugin, remember you can search for it with Vundle with 
-':PluginSearch! plugin_query' and update your plugins with ':PluginUpdate'
+2. As vimrc is setup, let Vundle handle installation of the rest of the plugins.
+Open vim and execute :PluginInstall

@@ -398,6 +398,19 @@ autocmd InsertLeave * :call HybridLN()
 "let g:airline_symbols.space = "\ua0"
 
 " Syntastic Setup
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_aggregate_errors = 1
+
+let g:syntastic_c_checkers = ['clang_check', 'clang_tidy', 'cppcheck', 'gcc', 'make']
+let g:syntastic_c_compiler_options ='-Wpedantic -Wall -Wextra -g'
 " getbg function
 " gets background of a highlighting group with fallback to SignColumn group
 "function! s:getbg(group)
@@ -430,8 +443,8 @@ autocmd InsertLeave * :call HybridLN()
 "    return l:mode . 'bg=' . l:bg
 "endfunction
 
-"let g:syntastic_error_symbol = '✘'
-"let g:syntastic_warning_symbol = '☢'
+let g:syntastic_error_symbol = '✘'
+let g:syntastic_warning_symbol = '☢'
 "hi! link SyntasticErrorLine SignColumn
 "hi! link SyntasticWarningLine SignColumn
 "au VimEnter,ColorScheme * exec 'hi! SyntasticErrorSign guifg=red ctermfg=red ' . s:getbg('SyntasticErrorLine')
@@ -518,7 +531,7 @@ au VimEnter * RainbowParentheses
 nnoremap <leader>t :TagbarToggle<cr>
 
 " Taglist
-"let Tlist_Use_Right_Window = 1
+let Tlist_Use_Right_Window = 1
 
 " Look for tag def in a "tags" file in the dir of the current file, then for
 " that same file in every folder above the folder of the current file, until the
@@ -529,7 +542,7 @@ set tags=./tags;/
 " Open NERDTree
 map <leader>n :NERDTreeToggle<CR>
 " Close Vim if NERDTree is the only window left
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Grahical Undo setup
 "nnoremap <F5> :GundoToggle<CR>
