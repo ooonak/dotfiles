@@ -28,6 +28,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-syntastic/syntastic'            " Syntax highlighter
 Plugin 'junegunn/rainbow_parentheses.vim'   " Guess :-)
 Plugin 'ctrlpvim/ctrlp.vim'                 " Jump to tag
+Plugin 'rust-lang/rust.vim'                 " Rust support
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
